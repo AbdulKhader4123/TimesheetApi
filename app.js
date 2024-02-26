@@ -161,9 +161,9 @@ app.use('/api', (req, res, next) => {
         // tenantIdOrName: <some-tenant-id-or-name>
 
     }, (err, user, info) => {
-        // console.log("error " + err)
-        // console.log("user dataaaaaaa" + JSON.stringify(user))
-        // console.log("info " + JSON.stringify(info))
+        console.log("error " + err)
+        console.log("user dataaaaaaa" + JSON.stringify(user))
+        console.log("info " + JSON.stringify(info))
         
         if (err) {
             /**
