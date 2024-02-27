@@ -186,18 +186,17 @@ exports.updateTimeSheet = async(req, res, next) => {
           }
         }
       }
+      else if(req.body.approver){
+        validators['approver'] = req.body.approver.trim();
+      }
       if(req.body.reviewer && timesheet?.reviewer && req.body.reviewer.trim() !== timesheet?.reviewer){
         validators['reviewer'] = req.body.reviewer.trim();
         updateStatus = { status: 'submitted'};
       }
-
-      if(
-        (req.body.approver?.trim() === timesheet?.approver && req.body.reviewer?.trim() === timesheet?.reviewer) || 
-        (req.body.approver?.trim() && req.body.reviewer?.trim())  
-      ){
-        updateStatus = { status: 'submitted'};
+      else if(req.body.reviewer){
+        validators['reviewer'] = req.body.reviewer.trim();
       }
-
+      
       const updatedTimesheet = await Timesheet.findOneAndUpdate({_id: req.params.id},{
           $set: {
             ...updateStatus,
