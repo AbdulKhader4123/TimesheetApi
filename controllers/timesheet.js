@@ -123,7 +123,10 @@ exports.postTimeSheet = async(req, res, next) => {
           "message": "Invalid Template",
         });
       } 
-      const timesheetExists = await Timesheet.findOne({templateId: req.body.templateId},{_id:1,name:1});
+      const timesheetExists = await Timesheet.findOne({
+        templateId: req.body.templateId,
+        created_by: req.authInfo["oid"]
+      },{_id:1,name:1});
       if (timesheetExists){
         return res.status(409).send({
           "status": "error",
